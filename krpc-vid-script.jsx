@@ -79,7 +79,8 @@ function main() {
     var isImportFilesSuccess = importFiles(
       targetBin,
       rootDir,
-      inputs[i][CSV_INDEXES.inputVideoTitle]
+      inputs[i][CSV_INDEXES.inputVideoTitle],
+      inputs[i][CSV_INDEXES.titleCard]
     );
     if (!isImportFilesSuccess) {
       $.write("ERROR - Failed to import files... terminating script");
