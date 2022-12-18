@@ -16,9 +16,6 @@ function insertVideoClip(
   var time = new Time();
   time.seconds = insertionSecond;
 
-  $.write(sequenceIndex);
-  $.write(app.project.sequences[sequenceIndex]);
-
   app.project.sequences[sequenceIndex].videoTracks[trackIndex].insertClip(
     app.project.rootItem.children[binIndex].children[clipIndex],
     time

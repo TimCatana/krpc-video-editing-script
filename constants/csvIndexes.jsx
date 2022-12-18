@@ -1,5 +1,6 @@
 var CSV_INDEXES = {
   startTime: 0,
   endTime: 1,
-  outputFileTitle: 2,
+  inputVideoTitle: 2,
+  outputVideoTitle: 3,
 };

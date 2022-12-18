@@ -76,7 +76,11 @@ function main() {
     /**
      * Import the files into the project
      */
-    var isImportFilesSuccess = importFiles(targetBin, rootDir);
+    var isImportFilesSuccess = importFiles(
+      targetBin,
+      rootDir,
+      inputs[i][CSV_INDEXES.inputVideoTitle]
+    );
     if (!isImportFilesSuccess) {
       $.write("ERROR - Failed to import files... terminating script");
       Error.runtimeError(5003, "Failed To Import Files");
@@ -114,7 +118,7 @@ function main() {
      */
     var isEncodingSuccess = encodeResult(
       i,
-      inputs[i][CSV_INDEXES.outputFileTitle]
+      inputs[i][CSV_INDEXES.outputVideoTitle]
     );
     if (!isEncodingSuccess) {
       $.write(
