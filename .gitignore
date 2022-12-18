@@ -1,0 +1,11 @@
+output-files/project-files/*
+!output-files/project-files/README.md
+
+input-files/Intros/*
+!input-files/Intros/README.md
+
+input-files/Names/*
+!input-files/Names/README.md
+
+input-files/Videos/*
+!input-files/Videos/README.md
