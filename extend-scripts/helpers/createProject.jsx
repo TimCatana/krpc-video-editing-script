@@ -15,7 +15,5 @@ function createProject(name) {
       randomNum.toString()
   );
 
-  $.write(result);
-
   return result;
 }

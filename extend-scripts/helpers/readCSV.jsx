@@ -70,14 +70,6 @@ function readCSVFile(rootDir, inputFilesDir, filename) {
       return null;
     }
 
-    if (
-      !parseInt(line[0]) ||
-      !parseInt(line[1]) ||
-      parseInt(line[0]) > parseInt(line[1])
-    ) {
-      return null;
-    }
-
     inputs.push(lines[i].split(","));
   }
 
@@ -177,7 +169,7 @@ function isInputValid(inputFilesDir, lineNum, input) {
     var nameCardFiles = titleFolder.getFiles();
   }
 
-  var nameCardFileNamesArray = [];
+  var nameCardFileNamesArray = ["none"]; // none means there is no title card
   for (var i = 0; i < nameCardFiles.length; i++) {
     if (nameCardFiles[i].getFileNameWithExtension() != "README.md") {
       nameCardFileNamesArray.push(nameCardFiles[i].getFileNameWithExtension());
