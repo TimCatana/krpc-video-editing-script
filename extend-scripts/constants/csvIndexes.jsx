@@ -4,4 +4,5 @@ var CSV_INDEXES = {
   inputVideoTitle: 2,
   outputVideoTitle: 3,
   titleCard: 4,
+  videoType: 5,
 };

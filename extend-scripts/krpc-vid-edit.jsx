@@ -8,8 +8,10 @@
 //@include ./constants/clipIndexes.jsx
 //@include ./constants/csvIndexes.jsx
 
-var pwd = new File($.fileName).parent;
-var rootDir = pwd.toString().replace(/\//g, "\\");
+var rootDir = new File($.fileName).parent.parent;
+var inputFilesDir = Folder(rootDir.toString() + "\\files\\inputs");
+var outputFilesDir = Folder(rootDir.toString() + "\\files\\outputs");
+// var rootDir = pwd.toString().replace(/\//g, "\\");
 
 /**
  *
@@ -50,7 +52,7 @@ function main() {
   /**
    * Read CSV File for inputs
    */
-  var inputs = readCSVFile(rootDir, "inputs.csv");
+  var inputs = readCSVFile(rootDir, inputFilesDir, "inputs.csv");
   if (!inputs) {
     $.write("ERROR - Failed to read CSV file inputs... terminating script");
     Error.runtimeError(5001, "Failed To Read CSV File");
@@ -59,7 +61,7 @@ function main() {
   /**
    * Create the project
    */
-  var isProjectCreationSuccess = createProject("Final");
+  var isProjectCreationSuccess = createProject("final.prproj");
   if (!isProjectCreationSuccess) {
     $.write("ERROR - Failed to create project... terminating script");
     Error.runtimeError(5002, "Failed To Create Project");
@@ -78,7 +80,7 @@ function main() {
      */
     var isImportFilesSuccess = importFiles(
       targetBin,
-      rootDir,
+      inputFilesDir,
       inputs[i][CSV_INDEXES.inputVideoTitle],
       inputs[i][CSV_INDEXES.titleCard]
     );
@@ -119,6 +121,7 @@ function main() {
      */
     var isEncodingSuccess = encodeResult(
       i,
+      inputs[i][CSV_INDEXES.videoType],
       inputs[i][CSV_INDEXES.outputVideoTitle]
     );
     if (!isEncodingSuccess) {

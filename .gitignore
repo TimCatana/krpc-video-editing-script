@@ -1,14 +1,33 @@
-output-files/project-files/*
-!output-files/project-files/README.md
+# Output files
 
-output-files/final-results/*
-!output-files/final-results/README.md
+files/outputs/final-results/music/*
+!files/outputs/final-results/music/README.md
 
-input-files/Intros/*
-!input-files/Intros/README.md
+files/outputs/final-results/sermons/*
+!files/outputs/final-results/sermons/README.md
 
-input-files/Names/*
-!input-files/Names/README.md
+files/outputs/final-results/shorts/*
+!files/outputs/final-results/shorts/README.md
 
-input-files/Videos/*
-!input-files/Videos/README.md
+files/outputs/project-files/*
+!files/outputs/project-files/README.md
+
+# Input files
+
+files/inputs/Intros/*
+!files/inputs/Intros/README.md
+
+files/inputs/Names/*
+!files/inputs/Names/README.md
+
+files/inputs/Videos/*
+!files/inputs/Videos/README.md
+
+# node-scripts
+
+node-scripts/node_modules/
+node-scripts/.env
+
+node-scripts/krpc-yt/secrets/*
+!node-scripts/krpc-yt/secrets/README.md
+
