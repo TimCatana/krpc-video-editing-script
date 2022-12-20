@@ -139,6 +139,34 @@ function isInputValid(inputFilesDir, lineNum, input) {
   }
 
   /**
+   * !Check to make sure that the video exists in the Videos folder
+   */
+
+  var videoFolder = Folder(inputFilesDir + "\\Videos");
+  if (!videoFolder.exists) {
+    return false;
+  } else {
+    var videoFiles = videoFolder.getFiles();
+  }
+
+  var videoFileNamesArray = [];
+  for (var i = 0; i < videoFiles.length; i++) {
+    if (videoFiles[i].getFileNameWithExtension() != "README.md") {
+      videoFileNamesArray.push(videoFiles[i].getFileNameWithExtension());
+    }
+  }
+
+  if (videoFileNamesArray.indexOf(input[CSV_INDEXES.inputVideoTitle]) == -1) {
+    $.write(
+      "Line " +
+        lineNum.toString() +
+        " contains invalid input -- input video needs to be one of:\n"
+    );
+    $.write(videoFileNamesArray.toString() + "\n");
+    return false;
+  }
+
+  /**
    * !Check to make sure that the title card exists in the Names folder
    */
 
