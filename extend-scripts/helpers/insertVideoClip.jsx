@@ -6,17 +6,28 @@
  * @param {*} binIndex each index of the bin contains the contents needed for one edit
  * @param {*} clipIndex The index of the clip in the bin
  */
-function insertVideoClip(
-  sequenceIndex,
-  trackIndex,
-  insertionSecond,
-  binIndex,
-  clipIndex
-) {
+function insertVideoClip(binIndex, trackIndex, clipIndex, insertionSecond) {
   var time = new Time();
   time.seconds = insertionSecond;
 
-  app.project.sequences[sequenceIndex].videoTracks[trackIndex].insertClip(
+  $.write(binIndex);
+  $.write("\n");
+
+  $.write(trackIndex);
+  $.write("\n");
+
+  $.write(clipIndex);
+  $.write("\n");
+
+  $.write(insertionSecond);
+  $.write("\n");
+
+  $.write(app.project.activeSequence.videoTracks[trackIndex]);
+  $.write("\n");
+
+  $.write(app.project.rootItem.children[binIndex].children[clipIndex]);
+
+  app.project.activeSequence.videoTracks[trackIndex].insertClip(
     app.project.rootItem.children[binIndex].children[clipIndex],
     time
   );

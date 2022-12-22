@@ -7,8 +7,14 @@ function importFiles(bin, filesDir, inputFile, titleCardFile) {
     filesDir.toString() + "\\Videos\\" + inputFile,
     filesDir.toString() + "\\Intros\\end-screen.mov",
     filesDir.toString() + "\\Intros\\intro-screen.mov",
-    filesDir.toString() + "\\Names\\" + titleCardFile,
   ];
+
+  $.write(inputFile + " ")
+  $.write(titleCardFile + "\n")
+
+  if (titleCardFile != "none") {
+    myFiles.push(filesDir.toString() + "\\Names\\" + titleCardFile);
+  }
 
   var result = app.project.importFiles(myFiles, true, bin);
 

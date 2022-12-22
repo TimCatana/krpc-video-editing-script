@@ -16,30 +16,40 @@ var outputFilesDir = Folder(rootDir.toString() + "\\files\\outputs");
 /**
  *
  */
-function doTheEdit(sequenceIndex) {
-  insertVideoClip(sequenceIndex, 1, 0, 0, CLIP_INDEXES.introScreen);
-  insertVideoClip(sequenceIndex, 0, 5, 0, CLIP_INDEXES.editedMainVideo);
+function doTheEdit(binIndex, titleExists) {
+  insertVideoClip(binIndex, 1, CLIP_INDEXES.introScreen, 0);
+
   insertVideoClip(
-    sequenceIndex,
-    1,
-    app.project.activeSequence.videoTracks[0].clips[0].end.seconds - 2,
+    binIndex,
     0,
-    CLIP_INDEXES.outroScreen
+    titleExists
+      ? CLIP_INDEXES.editedMainVideo
+      : CLIP_INDEXES.editedMainVideo - 1,
+    5
   );
+
   insertVideoClip(
-    sequenceIndex,
+    binIndex,
     1,
-    app.project.activeSequence.videoTracks[1].clips[0].end.seconds + 7,
-    0,
-    CLIP_INDEXES.titleCard
+    CLIP_INDEXES.outroScreen,
+    app.project.activeSequence.videoTracks[0].clips[0].end.seconds - 2
   );
-  insertVideoClip(
-    sequenceIndex,
-    1,
-    app.project.activeSequence.videoTracks[1].clips[2].start.seconds - 14,
-    0,
-    CLIP_INDEXES.titleCard
-  );
+
+  if (titleExists) {
+    insertVideoClip(
+      binIndex,
+      1,
+      CLIP_INDEXES.titleCard,
+      app.project.activeSequence.videoTracks[1].clips[0].end.seconds + 7
+    );
+
+    insertVideoClip(
+      binIndex,
+      1,
+      CLIP_INDEXES.titleCard,
+      app.project.activeSequence.videoTracks[1].clips[2].start.seconds - 14
+    );
+  }
 }
 
 /**
@@ -67,19 +77,31 @@ function main() {
     Error.runtimeError(5002, "Failed To Create Project");
   }
 
+  var sequenceBin = app.project.rootItem.createBin("Sequences");
+
   // TODO - for loop should start here for multiple edits at once for the future
 
   for (var i = 0; i < inputs.length; i++) {
     /**
+     *
+     */
+    var isCreateNewSequenceSuccess = createNewSequence(sequenceBin, rootDir, i);
+    if (!isCreateNewSequenceSuccess) {
+      $.write("ERROR - Failed to create sequence... terminating script");
+      Error.runtimeError(5005, "Failed To Create Sequence");
+    }
+
+    /**
      * The target bin
      */
-    var targetBin = app.project.rootItem.createBin("Bin " + i);
-
+    var projectBin = app.project.rootItem.createBin("Bin" + i);
+    var projectBinIndex = app.project.rootItem.children.numItems - 1;
+    $.write(projectBinIndex);
     /**
      * Import the files into the project
      */
     var isImportFilesSuccess = importFiles(
-      targetBin,
+      projectBin,
       inputFilesDir,
       inputs[i][CSV_INDEXES.inputVideoTitle],
       inputs[i][CSV_INDEXES.titleCard]
@@ -93,7 +115,8 @@ function main() {
      * Extract the sermon from service
      */
     var isGetSermonSubClipSuccess = getSubClip(
-      targetBin,
+      projectBin,
+      projectBinIndex,
       parseInt(inputs[i][CSV_INDEXES.startTime]),
       parseInt(inputs[i][CSV_INDEXES.endTime])
     );
@@ -105,16 +128,10 @@ function main() {
     /**
      *
      */
-    var isCreateNewSequenceSuccess = createNewSequence(rootDir, i);
-    if (!isCreateNewSequenceSuccess) {
-      $.write("ERROR - Failed to create sequence... terminating script");
-      Error.runtimeError(5004, "Failed To Create Sequence");
-    }
-
-    /**
-     *
-     */
-    doTheEdit(i);
+    doTheEdit(
+      projectBinIndex,
+      inputs[i][CSV_INDEXES.titleCard] == "none" ? false : true
+    );
 
     /**
      *
@@ -128,9 +145,11 @@ function main() {
       $.write(
         "ERROR - Failed to encode sequence... terminating script... you can try exporting it yourself"
       );
-      Error.runtimeError(5004, "Failed To Export Sequence");
+      Error.runtimeError(5007, "Failed To Export Sequence");
     }
   }
+
+  $.write("SUCCESS - Finished Edits");
 }
 
 main();
