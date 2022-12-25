@@ -96,7 +96,6 @@ function main() {
      */
     var projectBin = app.project.rootItem.createBin("Bin" + i);
     var projectBinIndex = app.project.rootItem.children.numItems - 1;
-    $.write(projectBinIndex);
     /**
      * Import the files into the project
      */

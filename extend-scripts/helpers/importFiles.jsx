@@ -9,9 +9,6 @@ function importFiles(bin, filesDir, inputFile, titleCardFile) {
     filesDir.toString() + "\\Intros\\intro-screen.mov",
   ];
 
-  $.write(inputFile + " ")
-  $.write(titleCardFile + "\n")
-
   if (titleCardFile != "none") {
     myFiles.push(filesDir.toString() + "\\Names\\" + titleCardFile);
   }

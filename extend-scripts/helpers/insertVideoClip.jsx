@@ -9,24 +9,7 @@
 function insertVideoClip(binIndex, trackIndex, clipIndex, insertionSecond) {
   var time = new Time();
   time.seconds = insertionSecond;
-
-  $.write(binIndex);
-  $.write("\n");
-
-  $.write(trackIndex);
-  $.write("\n");
-
-  $.write(clipIndex);
-  $.write("\n");
-
-  $.write(insertionSecond);
-  $.write("\n");
-
-  $.write(app.project.activeSequence.videoTracks[trackIndex]);
-  $.write("\n");
-
-  $.write(app.project.rootItem.children[binIndex].children[clipIndex]);
-
+  
   app.project.activeSequence.videoTracks[trackIndex].insertClip(
     app.project.rootItem.children[binIndex].children[clipIndex],
     time

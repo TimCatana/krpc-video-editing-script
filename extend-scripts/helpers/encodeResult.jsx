@@ -3,7 +3,7 @@
  */
 function encodeResult(currentIndex, directoryName, outputName) {
   var result = app.encoder.encodeSequence(
-    app.project.sequences[currentIndex],
+    app.project.activeSequence,
     "C:\\Code\\1-krpcStuff\\krpc-video-editing-script\\files\\outputs\\final-results\\" +
       directoryName +
       "\\" +
