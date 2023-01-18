@@ -1,9 +1,6 @@
-8076,9550,nov6 sun morn.mp4,DBsunmornnov6,DB.mov,sermons
-1616,2388,nov 6 sun eve.mp4,ABsinevenov6,AB.mov,sermons
-3042,4524,nov 6 sun eve.mp4,BenJurcaMarturienov6suneve,none,sermons
-2590,4469,nov10thurs.mp4,VHthursnov10,VH.mov,sermons
-5299,7408,nov10thurs.mp4,ABthursnov10studiu,AB.mov,sermons
-6029,7740,nov13sunmorn.mp4,GTnov18sunmorn,GT.mov,sermons
-9678,10898,nov13sunmorn.mp4,OPnov18sunmorn,OP.mov,sermons
-1543,2256,nov13suneve.mp4,abnov13suneveenglish,AB.mov,sermons
-4763,7282,nov13suneve.mp4,fmnov13suneveenglish,DM.mov,sermons
+start time (seconds),end time (seconds),title of video to edit (video should be  in files/inputs/videos),name of output file (whatever you want),title card either the name of the title video or "none" (titlecard must be in files/inputs/Names),type of video (one of "sermons", "shorts" or "music")
+
+8076,9550,nov6 sun morn.mp4,Daniel Birsan - some cool title,DanielBirsanTitle.mov,sermons
+8076,9550,nov6 sun morn.mp4,Andrei Balulescu - another cool title,AB.mov,sermons
+8076,9550,nov6 sun morn.mp4,fanfara - some song title,none,music
+8076,9550,nov6 sun morn.mp4,Short - some short title,none,shorts

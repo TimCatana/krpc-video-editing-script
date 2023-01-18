@@ -16,8 +16,10 @@ var outputFilesDir = Folder(rootDir.toString() + "\\files\\outputs");
 /**
  *
  */
-function doTheEdit(binIndex, titleExists) {
-  insertVideoClip(binIndex, 1, CLIP_INDEXES.introScreen, 0);
+function doTheEdit(binIndex, titleExists, isShort) {
+  if (!isShort) {
+    insertVideoClip(binIndex, 1, CLIP_INDEXES.introScreen, 0);
+  }
 
   insertVideoClip(
     binIndex,
@@ -25,30 +27,32 @@ function doTheEdit(binIndex, titleExists) {
     titleExists
       ? CLIP_INDEXES.editedMainVideo
       : CLIP_INDEXES.editedMainVideo - 1,
-    5
+    isShort ? 0 : 5
   );
 
-  insertVideoClip(
-    binIndex,
-    1,
-    CLIP_INDEXES.outroScreen,
-    app.project.activeSequence.videoTracks[0].clips[0].end.seconds - 2
-  );
-
-  if (titleExists) {
+  if (!isShort) {
     insertVideoClip(
       binIndex,
       1,
-      CLIP_INDEXES.titleCard,
-      app.project.activeSequence.videoTracks[1].clips[0].end.seconds + 7
+      CLIP_INDEXES.outroScreen,
+      app.project.activeSequence.videoTracks[0].clips[0].end.seconds - 2
     );
 
-    insertVideoClip(
-      binIndex,
-      1,
-      CLIP_INDEXES.titleCard,
-      app.project.activeSequence.videoTracks[1].clips[2].start.seconds - 14
-    );
+    if (titleExists) {
+      insertVideoClip(
+        binIndex,
+        1,
+        CLIP_INDEXES.titleCard,
+        app.project.activeSequence.videoTracks[1].clips[0].end.seconds + 7
+      );
+
+      insertVideoClip(
+        binIndex,
+        1,
+        CLIP_INDEXES.titleCard,
+        app.project.activeSequence.videoTracks[1].clips[2].start.seconds - 14
+      );
+    }
   }
 }
 
@@ -129,7 +133,8 @@ function main() {
      */
     doTheEdit(
       projectBinIndex,
-      inputs[i][CSV_INDEXES.titleCard] == "none" ? false : true
+      inputs[i][CSV_INDEXES.titleCard] == "none" ? false : true,
+      inputs[i][CSV_INDEXES.videoType] == VIDEO_TYPES.shorts ? true : false
     );
 
     /**
